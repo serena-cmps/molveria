@@ -1,0 +1,74 @@
+import pandas as pd
+import os
+
+print("=" * 80)
+print("🚀 COMBINING ALL 12 TOX21 ASSAYS INTO ONE FILE")
+print("=" * 80)
+
+# List of all 12 Tox21 assay files
+assay_files = [
+    'tox21_ahr.csv.smiles',
+    'tox21_ar.csv.smiles',
+    'tox21_are.csv.smiles',
+    'tox21_aromatase.csv.smiles',
+    'tox21_ar_lbd.csv.smiles',
+    'tox21_atad5.csv.smiles',
+    'tox21_er.csv.smiles',
+    'tox21_er_lbd.csv.smiles',
+    'tox21_hse.csv.smiles',
+    'tox21_mmp.csv.smiles',
+    'tox21_p53.csv.smiles',
+    'tox21_ppar_gamma.csv.smiles',
+]
+
+print(f"\n1️  Loading {len(assay_files)} assay files...")
+
+# Start with first file
+assay_name = assay_files[0].replace('tox21_', '').replace('.csv.smiles', '')
+print(f"\n   Loading {assay_files[0]}...")
+df_combined = pd.read_csv(assay_files[0], sep='\t', header=None)
+
+# Rename columns: col0=smiles, col1=id, col2=activity
+df_combined.columns = ['smiles', 'id', assay_name]
+df_combined = df_combined[['smiles', assay_name]]
+
+# DEDUPLICATE: Keep only first occurrence of each SMILES
+df_combined = df_combined.drop_duplicates(subset=['smiles'], keep='first')
+
+print(f"    Loaded {assay_name} - {len(df_combined)} unique molecules")
+
+# Load and merge remaining files
+for file in assay_files[1:]:
+    assay_name = file.replace('tox21_', '').replace('.csv.smiles', '')
+    print(f"\n   Loading {file}...")
+    
+    df_temp = pd.read_csv(file, sep='\t', header=None)
+    df_temp.columns = ['smiles', 'id', assay_name]
+    df_temp = df_temp[['smiles', assay_name]]
+    
+    # DEDUPLICATE: Keep only first occurrence of each SMILES
+    df_temp = df_temp.drop_duplicates(subset=['smiles'], keep='first')
+    
+    # Merge on SMILES
+    df_combined = df_combined.merge(df_temp, on='smiles', how='inner')
+    
+    print(f"    Loaded {assay_name} - Merged to {len(df_combined)} molecules")
+
+print(f"\n2️  Final combined dataset:")
+print(f"   Shape: {df_combined.shape}")
+print(f"   Columns: {df_combined.columns.tolist()}")
+print(f"   Total molecules with all 12 assays: {len(df_combined)}")
+
+# Save combined file
+output_file = 'tox21_combined.csv'
+print(f"\n3️  Saving to {output_file}...")
+df_combined.to_csv(output_file, index=False)
+
+print(f"\n" + "=" * 80)
+print(f" SUCCESS! Combined Tox21 file created: {output_file}")
+print(f"=" * 80)
+print(f"Molecules: {len(df_combined)}")
+print(f"Assays: 12")
+print(f"Total columns: {len(df_combined.columns)}")
+print(f"First row:")
+print(df_combined.head(1))

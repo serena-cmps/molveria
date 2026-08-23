@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "molpredict-frontend",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "C:\\Users\\user\\Desktop\\Drug_Discovery_project\\frontend\\dev.cmd"],
+      "port": 5173
+    }
+  ]
+}

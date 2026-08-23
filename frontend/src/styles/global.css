@@ -1,0 +1,387 @@
+body {
+  margin: 0;
+  background: #04060b;
+}
+a {
+  color: #3fe0ff;
+  text-decoration: none;
+}
+a:hover {
+  color: #8fe9ff;
+}
+
+.mv-feedback-textarea::placeholder {
+  color: rgba(219, 230, 242, 0.35);
+}
+
+/* Reset for onClick elements converted to real <button>s, so keyboard focus
+   and semantics come for free without changing how anything looks. */
+.mv-btn {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+  display: block;
+}
+.mv-btn:focus-visible {
+  outline: 2px solid #3fe0ff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Scroll reveal — gated behind html.reveal-js (set by a synchronous head
+   script only when IntersectionObserver exists) so content is visible by
+   default whenever JS doesn't run or the observer API is unavailable. */
+html.reveal-js .reveal-section .reveal-item {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+html.reveal-js .reveal-section.is-visible .reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Content already on screen at mount (page load, or a route change landing
+   above this section) — show it at final state with no transition, ever. */
+html.reveal-js .reveal-section.is-instant .reveal-item {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-js .reveal-section .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Blanket stop for the decorative loops (orbiting rings, pulsing nodes, the
+   molecule-viewer sway/trace/pop, the caret/sweep/shimmer states) — anyone
+   asking for reduced motion gets everything in its resting frame. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .pg,
+  .pg * {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .pg {
+    overflow-x: hidden !important;
+  }
+  .pg > div {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  .pg > div > div[style*="px 44px"],
+  .pg > div > div > div[style*="px 44px"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .pg > div:first-child a[style*="border: 1px solid rgb(63, 224, 255)"],
+  .pg > div:first-child span[style*="border: 1px solid rgb(63, 224, 255)"] {
+    display: none !important;
+  }
+  .pg .stats > div > div:last-child {
+    font-size: 8.5px !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .pg .stats {
+    gap: 8px !important;
+  }
+  .pg div.stats > div > div:last-child {
+    font-size: 9px !important;
+    line-height: 1.75 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    margin-top: 10px !important;
+  }
+  .pg div.stats > div > div:last-child br {
+    display: block !important;
+  }
+  .pg div.stats {
+    align-items: start !important;
+  }
+  .pg div.stats .mbr {
+    display: block !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    height: 0 !important;
+  }
+  .pg div.stats .nowrap-stat {
+    white-space: nowrap !important;
+    font-size: 8px !important;
+    display: inline-block !important;
+  }
+
+  .pg div.stats4 {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+  .pg div.stats4 > div {
+    padding: 12px 0 0 !important;
+    border: 0 !important;
+  }
+  .pg div.stats4 > div > div:first-child {
+    font-size: 7.5px !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+  }
+  .pg div.stats4 > div > div:last-child {
+    font-size: 10px !important;
+    margin-top: 6px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .pg div.vbars {
+    height: auto !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 16px !important;
+  }
+  .pg div.vbars > div {
+    height: auto !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .pg div.vbars > div > div:first-child {
+    width: 44px !important;
+    flex: none !important;
+    text-align: right !important;
+  }
+  .pg div.vbars > div > div:nth-child(2) {
+    height: 12px !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    border-radius: 3px !important;
+  }
+  .pg div.vbars > div > div:last-child {
+    width: 76px !important;
+    flex: none !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+  }
+
+  .pg [style*="font: 400 22px"],
+  .pg [style*="font: 400 21px"] {
+    font-size: 13px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  .pg [style*="height: 130px"],
+  .pg [style*="height: 180px"],
+  .pg [style*="height: 170px"] {
+    height: auto !important;
+  }
+  .pg [style*="height: 130px"] > div,
+  .pg [style*="height: 180px"] > div {
+    height: auto !important;
+  }
+  .pg [style*="height: 130px"] > div > div:nth-child(2),
+  .pg [style*="height: 180px"] > div > div:nth-child(2) {
+    height: 14px !important;
+    width: 100% !important;
+  }
+  .pg svg[viewBox="0 0 32 32"] {
+    width: 24px !important;
+    height: 24px !important;
+    flex: none !important;
+  }
+  .pg > div:first-child {
+    gap: 10px !important;
+    row-gap: 10px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+  .pg > div:first-child > div:last-child {
+    gap: 11px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.04em !important;
+  }
+  .pg [style*="position: sticky"],
+  .pg [style*="position:sticky"] {
+    position: static !important;
+  }
+  .pg [style*="display: flex"],
+  .pg [style*="display:flex"] {
+    flex-wrap: wrap !important;
+  }
+  .pg [style*="display: grid"],
+  .pg [style*="display:grid"] {
+    grid-template-columns: 1fr !important;
+  }
+  .pg [style*="flex: 0 0"],
+  .pg [style*="flex: 1"],
+  .pg [style*="flex:0 0"],
+  .pg [style*="flex:1"] {
+    flex: 1 1 100% !important;
+  }
+  .pg [style*="white-space: nowrap"] {
+    white-space: normal !important;
+  }
+  .pg [style*="flex-direction: column"],
+  .pg [style*="flex-direction:column"] {
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+  }
+  .pg [style*="flex-direction: column"] > *,
+  .pg [style*="flex-direction:column"] > * {
+    flex: 0 1 auto !important;
+    width: 100% !important;
+  }
+
+  .pg [style*="border-left: 1px solid rgba(63, 224, 255, 0.16)"],
+  .pg [style*="border-left: 1px solid rgba(63, 224, 255, 0.14)"] {
+    border-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  .pg [style*="padding-left: 56px"],
+  .pg [style*="padding-left: 64px"],
+  .pg [style*="padding-left: 52px"] {
+    padding-left: 0 !important;
+  }
+  .pg [style*="margin-right: -"],
+  .pg [style*="margin-left: -"] {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .pg [style*="min-height: 760px"],
+  .pg [style*="min-height: 660px"],
+  .pg [style*="min-height: 540px"],
+  .pg [style*="min-height: 520px"] {
+    min-height: 0 !important;
+  }
+  .pg svg {
+    max-width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+  }
+  .pg svg[viewBox="0 0 24 24"] {
+    width: 20px !important;
+    height: 20px !important;
+    flex: none !important;
+  }
+  .pg pre {
+    font-size: 10.5px !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-x: auto !important;
+  }
+  .pg table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+  .pg td {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .pg h1 {
+    font-size: 27px !important;
+  }
+  .pg h1 span {
+    padding-left: 0 !important;
+  }
+  .pg h2 {
+    font-size: 22px !important;
+  }
+  .pg h3 {
+    font-size: 19px !important;
+  }
+  .pg p {
+    font-size: 15px !important;
+  }
+  .pg [style*="box-shadow: 0 0"],
+  .pg [style*="box-shadow:0 0"] {
+    box-shadow: 0 0 12px rgba(63, 224, 255, 0.3) !important;
+  }
+  .pg .stats {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin-top: 36px !important;
+  }
+  .pg .stats > div {
+    padding: 0 !important;
+    border: 0 !important;
+    text-align: left !important;
+  }
+  .pg .stats > div > div:first-child {
+    font-size: 18px !important;
+    height: auto !important;
+    white-space: nowrap !important;
+  }
+  .pg .stats > div > div:first-child span {
+    font-size: 10px !important;
+  }
+  .pg .stats > div > div:last-child {
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
+    white-space: normal !important;
+  }
+  .pg .seg {
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  .pg .seg > div {
+    padding: 9px 8px !important;
+    font-size: 9.5px !important;
+    justify-content: center !important;
+    flex: 1 1 50% !important;
+  }
+  .pg .hints {
+    gap: 6px !important;
+    flex-direction: column !important;
+  }
+  .pg .hints .hint-batch {
+    display: none !important;
+  }
+  .pg .scroller {
+    overflow-x: auto !important;
+  }
+
+  /* The generic "[style*=flex-direction: column] > *" rule above stretches
+     every direct child of a column-flex box to full width, which is right
+     for stacked rows/cards but wrong for a fixed-size circle (play button,
+     status icon, photo slot) — it flattens it into an oval. Same specificity
+     as that rule (one attribute/class selector each), so source order
+     decides: placed after it here to win the tie for just these elements.
+     Size comes from --mv-circle-size (set inline per element) so this one
+     rule covers every fixed circle regardless of its actual diameter. */
+  .pg .mv-fixed-circle {
+    width: var(--mv-circle-size, 78px) !important;
+    height: var(--mv-circle-size, 78px) !important;
+    flex: none !important;
+  }
+}

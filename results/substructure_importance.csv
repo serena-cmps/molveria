@@ -1,0 +1,6 @@
+smiles,aromatic_ring,hydroxyl,carboxyl,amine,carbonyl,ether,nitro,halogen,tox21_avg_node_importance,esol_avg_node_importance,chembl_avg_node_importance
+CCO,0,1,0,0,0,1,0,0,0.004019464,0.22089922,9.390352e-18
+CC(O)=O,0,1,1,0,1,1,0,0,0.012596546,0.21339759,1.6796148e-09
+c1ccccc1,6,0,0,0,0,0,0,0,0.07200855,4.3675647,8.329265e-09
+CCN,0,0,0,1,0,0,0,0,0.004107233,0.81362057,2.1942286e-22
+CC(C)O,0,1,0,0,0,1,0,0,0.0047642672,0.20223288,3.1235677e-17

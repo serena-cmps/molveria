@@ -1,0 +1,10 @@
+EXPLAINABILITY ANALYSIS
+============================================================
+
+Method: Feature Importance Analysis
+Analyzed 10 molecules from test set
+Shows which atomic features have highest values
+
+CONCLUSION:
+Higher feature values indicate more important atoms
+This helps understand model predictions!
