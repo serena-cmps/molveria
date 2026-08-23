@@ -216,11 +216,11 @@ export const api = {
   headlineLine2: "Nine endpoints.",
   intro:
     "A FastAPI service exposing the three models over HTTP. Interactive documentation is generated automatically and available at /docs on any running instance.",
-  baseUrl: "[BASE URL — pending deployment]",
+  baseUrl: "https://molveria.onrender.com",
   chips: ["FastAPI · JSON", "NO AUTHENTICATION", "NO RATE LIMITING"],
-  curl: 'curl -X POST [BASE URL — pending deployment]/predict \\\n  -H "Content-Type: application/json" \\\n  -d \'{"smiles": "CC(=O)Oc1ccccc1C(=O)O"}\'',
+  curl: 'curl -X POST https://molveria.onrender.com/predict \\\n  -H "Content-Type: application/json" \\\n  -d \'{"smiles": "CC(=O)Oc1ccccc1C(=O)O"}\'',
   quickStartMeta: { label: "QUICK START · cURL", tag: "● v1.0" },
-  quickStartFooter: ["TYPICAL LATENCY 82 ms", "RETURNS 16 VALUES"],
+  quickStartFooter: ["TYPICAL LATENCY 82 ms WARM · UP TO 60s COLD START", "RETURNS 16 VALUES"],
   endpointsHeading: "Nine endpoints",
   endpointsNote: "ALL JSON EXCEPT /batch/upload (multipart) AND /batch/{job_id}/download (CSV stream)",
   endpoints: [

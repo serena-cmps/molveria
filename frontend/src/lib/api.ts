@@ -8,7 +8,10 @@
 // page's link to the live /docs) derive from this one constant instead of
 // hardcoding a second copy that could drift from it — updating deployment
 // is then a one-line change here rather than a hunt across the codebase.
-export const BASE_URL = "http://localhost:8000";
+//
+// VITE_API_URL is a build-time Vite env var (set in Vercel for production),
+// not read at runtime — falls back to localhost so local dev needs no .env.
+export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export interface AtomImportance {
   index: number;
