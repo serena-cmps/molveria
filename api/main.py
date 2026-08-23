@@ -46,11 +46,21 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Dev frontend (Vite) runs on a different origin/port than this API, so the
-# browser blocks fetch() calls without explicit CORS headers.
+# Frontend runs on a different origin than this API (local dev on Vite's
+# port, production on Vercel), so the browser blocks fetch() calls without
+# explicit CORS headers.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "https://molveria.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    # Vercel preview deployments get a unique subdomain per build
+    # (e.g. molveria-rkqg82ttt-serena-dalal.vercel.app) that can't be
+    # listed in advance. Scoped to this project's own preview subdomains
+    # only — not a wildcard that would accept any origin.
+    allow_origin_regex=r"^https://molveria-[a-z0-9]+-serena-dalal\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
