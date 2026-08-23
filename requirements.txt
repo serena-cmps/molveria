@@ -1,0 +1,27 @@
+# Runtime dependencies for the FastAPI backend (api/) only — training and
+# analysis scripts under scripts/ are not part of the deployed service and
+# their dependencies (pandas, scikit-learn, matplotlib, etc.) are
+# deliberately excluded here.
+#
+# Versions are pinned exactly to what is installed and confirmed working
+# locally (via `pip show`), not guessed or given as ranges.
+#
+# torch is pulled from PyTorch's CPU-only wheel index — the default PyPI
+# build bundles multi-GB CUDA runtimes that aren't needed and won't fit on
+# a memory-constrained host with no GPU. Pinning the exact "+cpu" local
+# version below means pip can only satisfy it from this index, so it can't
+# silently fall back to the default (CUDA) build if both indexes happen to
+# have a matching version.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+fastapi==0.141.1
+uvicorn==0.52.2
+python-multipart==0.0.32
+pydantic==2.13.4
+SQLAlchemy==2.0.52
+psycopg2-binary==2.9.12
+python-dotenv==1.2.3
+rdkit==2026.3.4
+numpy==2.4.6
+torch==2.13.0+cpu
+torch-geometric==2.8.0.post1

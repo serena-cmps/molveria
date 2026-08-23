@@ -82,9 +82,7 @@ Caching the three models eliminated redundant disk loads, taking throughput from
 ### Backend
 
 ```bash
-pip install fastapi "uvicorn[standard]" python-multipart sqlalchemy psycopg2-binary python-dotenv rdkit pandas numpy
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-pip install torch-geometric
+pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` and fill in your real database credentials:
