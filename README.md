@@ -69,7 +69,7 @@ Measured on an Intel Core Ultra 5 125U (12 cores / 14 threads, 16 GB RAM, CPU in
 | Cached, batch size 1 | 114.1 mol/s |
 | Cached, batch size 100 | 953.1 mol/s |
 
-Caching the three models eliminated redundant disk loads (5.1×), and batching the forward pass took throughput the rest of the way (a further 8.4×) — **114 → 953 mol/s, 8.4× overall**, on the same weights. Median of 3 runs per configuration, real molecules drawn from the datasets.
+Caching the three models eliminated redundant disk loads, taking throughput from 22.5 to 114.1 mol/s (5.1×). Batching the forward pass took it from 114.1 to 953.1 mol/s (a further 8.4×), for 42× overall against the naive baseline. The 8.4× figure is the one worth quoting: it isolates batching with models cached on both sides, whereas the naive baseline reloads all three checkpoints from disk per molecule and isn't an implementation anyone would ship. Median of 3 runs per configuration, real molecules drawn from the datasets.
 
 ## Setup
 
@@ -117,7 +117,7 @@ Opens at `http://localhost:5173`, talking to the backend on port 8000.
 
 The deployed site's Model Card page has the full breakdown — intended use, out-of-scope uses, per-assay accuracy, and known limitations (random-split inflation, imbalanced toxicity labels, gradient saliency vs. causation, small training sets, and more). The short version:
 
-**This is a screening and prioritisation aid trained on public datasets, not a substitute for laboratory testing.** Every figure it produces is a statistical estimate, not a measurement. It is not for clinical, medical, or regulatory use, and it has not been validated on chemistry unlike its training data.
+**This is a screening and prioritisation aid trained on public datasets, not a substitute for laboratory testing.** Every prediction it produces is a statistical estimate, not a measurement. It is not for clinical, medical, or regulatory use, and it has not been validated on chemistry unlike its training data.
 
 ## License
 
