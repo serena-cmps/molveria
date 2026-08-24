@@ -111,6 +111,18 @@ npm run dev
 
 Opens at `http://localhost:5173`, talking to the backend on port 8000.
 
+### Docker
+
+The backend and its database can also be run with a single command, no local Python or PostgreSQL install required:
+
+```bash
+docker compose up --build
+```
+
+This builds the backend image (`python:3.12-slim`, ~1.8 GB with the CPU-only PyTorch stack) and starts it alongside a `postgres:16` container with the schema in `database/create_schema.sql` applied automatically on first startup. The API is reachable at `http://localhost:8000` once both containers report healthy; Postgres itself is exposed on host port `5433` (mapped to its usual `5432` inside the container) to avoid clashing with a locally-installed Postgres. The compose file's `DATABASE_URL` is a throwaway local credential for the bundled database only — it has no relation to production credentials, which live in `.env` (local) or the hosting platform's own environment config (deployed) and are never baked into the image.
+
+This is a backend-only container — the frontend still runs separately via `npm run dev` (above) and points at `http://localhost:8000` by default. This Dockerfile is for local/self-hosted use; it doesn't change how the live deployment works; Render builds and runs the backend directly from `requirements.txt`, without Docker.
+
 ## Model Card & Limitations
 
 The deployed site's Model Card page has the full breakdown — intended use, out-of-scope uses, per-assay accuracy, and known limitations (random-split inflation, imbalanced toxicity labels, gradient saliency vs. causation, small training sets, and more). The short version:

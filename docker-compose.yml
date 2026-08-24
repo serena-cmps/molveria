@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: drug_discovery
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      # Host-side 5433 to avoid clashing with a local Postgres install on
+      # 5432; the backend talks to this over the internal `db:5432` hostname
+      # regardless, so this remap only affects access from the host machine.
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Postgres's official image auto-runs any .sql file found here on
+      # first startup (empty data dir only) — this is what applies the
+      # schema without a separate manual step.
+      - ./database/create_schema.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Local-only throwaway credentials for the db service above — not a
+      # real secret, so it's fine to set inline here rather than via .env.
+      # This is unrelated to the real DATABASE_URL used in production,
+      # which lives only in Render's own environment config.
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/drug_discovery
+      PORT: 8000
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
